@@ -143,7 +143,7 @@ try_udp:
             jp  nz,read_loop            ; ignore if not for us
 
             ld  a,(packet+42)
-            cp  "?"                     ; query?
+            cp  "?"                     ; discovery query?
             jr  nz,try_data
 
             ld  a,"!"
@@ -153,6 +153,16 @@ try_udp:
             jp  read_loop
 
 try_data:
+            ld  hl,(packet+30)          ; first 2 bytes of target IP
+            ld  de,(sam_ip)
+            and a
+            sbc hl,de
+            jp  nz,read_loop            ; jump if not unicast for us
+            ld  hl,(packet+32)          ; second 2 bytes of target IP
+            ld  de,(sam_ip+2)
+            sbc hl,de
+            jp  nz,read_loop            ; jump if not unicast for us
+
             cp  "@"                     ; data block?
             jr  nz,try_exec
 
