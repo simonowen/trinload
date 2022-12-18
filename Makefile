@@ -4,7 +4,7 @@ DEPS=
 .PHONY: clean
 
 $(NAME).dsk: $(NAME).asm $(DEPS)
-	pyz80.py -s length -I samdos2 --mapfile=%NAME%.map $(NAME).asm
+	pyz80.py -s length -I samdos2 --mapfile=$(NAME).map $(NAME).asm
 
 run: $(NAME).dsk
 	open $(NAME).dsk
