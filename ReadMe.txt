@@ -5,6 +5,9 @@ TrinLoad is a network code loader for the SAM Coupe, accepting and executing
 code and data sent to it from the network. It requires a Quazar Trinity
 interface, since SAM lacks native ethernet hardware.
 
+Please note you will need to configure a static IP for your SAM, since trinload
+does not currently support using DHCP in network settings.
+
 The server listens for requests on UDP port 0xEDB0. The first byte of each
 request is the request type, and may be followed by additional parameters and
 data.
